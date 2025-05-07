@@ -1,0 +1,78 @@
+package com.mrgranfiesta.ponteenformaguerrero3.domain.usecase.user
+
+import android.net.Uri
+import com.mrgranfiesta.ponteenformaguerrero3.data.datastore.UserDataStore
+import com.mrgranfiesta.ponteenformaguerrero3.data.repository.UserRepository
+import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.Rol
+import com.mrgranfiesta.ponteenformaguerrero3.domain.dtobean.user.UserWithRolDto
+import com.mrgranfiesta.ponteenformaguerrero3.domain.singleton.CurrentUser
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockkObject
+import io.mockk.unmockkAll
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.Assert.assertEquals
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+
+@RunWith(RobolectricTestRunner::class)
+class UpdateUserUsernameUseCaseTest {
+    @RelaxedMockK
+    private lateinit var repo: UserRepository
+
+    @RelaxedMockK
+    private lateinit var userDataStore: UserDataStore
+
+    private lateinit var updateUserUsernameUseCase: UpdateUserUsernameUseCase
+
+    @Before
+    fun onBefore() {
+        MockKAnnotations.init(this)
+        mockkObject(CurrentUser)
+        updateUserUsernameUseCase = UpdateUserUsernameUseCase(
+            repo = repo,
+            userDataStore = userDataStore
+        )
+    }
+
+    @After
+    fun onAfter() {
+        unmockkAll()
+    }
+
+    @Test
+    fun `test updateUserUsernameUseCase`() {
+        val userWithRolDto = UserWithRolDto(
+            idUser = 1,
+            username = "standar",
+            email = "standar@gmail.com",
+            photoUri = Uri.EMPTY,
+            rol = Rol.STANDAR_USER
+        )
+
+        coEvery { CurrentUser.user } returns userWithRolDto
+
+        val usernameSolution = "MrGranFiesta"
+        updateUserUsernameUseCase(
+            idUser = 1,
+            username = usernameSolution
+        )
+
+        coVerify {
+            repo.updateUsername(
+                idUser = any(),
+                username = any()
+            )
+        }
+
+        coVerify {
+            userDataStore.updateUsername(any())
+        }
+
+        assertEquals(usernameSolution, CurrentUser.user?.username)
+    }
+}

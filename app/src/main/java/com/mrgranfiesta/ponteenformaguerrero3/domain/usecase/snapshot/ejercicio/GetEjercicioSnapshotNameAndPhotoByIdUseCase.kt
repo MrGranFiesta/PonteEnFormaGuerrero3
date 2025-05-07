@@ -1,0 +1,20 @@
+package com.mrgranfiesta.ponteenformaguerrero3.domain.usecase.snapshot.ejercicio
+
+
+import com.mrgranfiesta.ponteenformaguerrero3.data.repository.snapshot.EjercicioSnapshotRepository
+import com.mrgranfiesta.ponteenformaguerrero3.domain.dtobean.ejercicio.EjercicioNameAndPhotoDto
+import com.mrgranfiesta.ponteenformaguerrero3.domain.utils.mapper.DtoMapper
+import jakarta.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+
+class GetEjercicioSnapshotNameAndPhotoByIdUseCase @Inject constructor(
+    private val repo: EjercicioSnapshotRepository
+) {
+    operator fun invoke(idEjercicioSnapshot: Long): Flow<EjercicioNameAndPhotoDto> {
+        return repo.getEjercicioSnapshotInfoNulleableByPk(idEjercicioSnapshot).filterNotNull().map {
+            DtoMapper.toEjercicioNameAndPhotoDto(it)
+        }
+    }
+}

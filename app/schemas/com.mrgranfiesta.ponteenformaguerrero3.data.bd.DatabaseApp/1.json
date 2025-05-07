@@ -1,0 +1,489 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5ea60ae1fe576dcbb14d55abd6095fd9",
+    "entities": [
+      {
+        "tableName": "ejercicio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEjercicio` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `isSimetria` INTEGER NOT NULL, `musculoSet` TEXT NOT NULL, `nivel` TEXT NOT NULL, `descripcion` TEXT NOT NULL, `rol` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idEjercicio",
+            "columnName": "idEjercicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSimetria",
+            "columnName": "isSimetria",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "musculoSet",
+            "columnName": "musculoSet",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nivel",
+            "columnName": "nivel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idEjercicio"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_ejercicio_idEjercicio",
+            "unique": true,
+            "columnNames": [
+              "idEjercicio"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_ejercicio_idEjercicio` ON `${TABLE_NAME}` (`idEjercicio`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "step",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idStep` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idEjercicio` INTEGER NOT NULL, `idRutina` INTEGER NOT NULL, `cantidad` INTEGER NOT NULL, `serie` INTEGER NOT NULL, `ordenExecution` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `rol` TEXT NOT NULL, FOREIGN KEY(`idEjercicio`) REFERENCES `ejercicio`(`idEjercicio`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idRutina`) REFERENCES `rutina`(`idRutina`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idStep",
+            "columnName": "idStep",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEjercicio",
+            "columnName": "idEjercicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRutina",
+            "columnName": "idRutina",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serie",
+            "columnName": "serie",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordenExecution",
+            "columnName": "ordenExecution",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idStep"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_step_idStep",
+            "unique": true,
+            "columnNames": [
+              "idStep"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_step_idStep` ON `${TABLE_NAME}` (`idStep`)"
+          },
+          {
+            "name": "index_step_idRutina",
+            "unique": false,
+            "columnNames": [
+              "idRutina"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_step_idRutina` ON `${TABLE_NAME}` (`idRutina`)"
+          },
+          {
+            "name": "index_step_idEjercicio",
+            "unique": false,
+            "columnNames": [
+              "idEjercicio"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_step_idEjercicio` ON `${TABLE_NAME}` (`idEjercicio`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ejercicio",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idEjercicio"
+            ],
+            "referencedColumns": [
+              "idEjercicio"
+            ]
+          },
+          {
+            "table": "rutina",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRutina"
+            ],
+            "referencedColumns": [
+              "idRutina"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "rutina",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idRutina` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `descripcion` TEXT NOT NULL, `musculoSet` TEXT NOT NULL, `nivel` TEXT NOT NULL, `isCalentamiento` INTEGER NOT NULL, `isEstiramiento` INTEGER NOT NULL, `descanso` INTEGER NOT NULL, `rol` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idRutina",
+            "columnName": "idRutina",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "musculoSet",
+            "columnName": "musculoSet",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nivel",
+            "columnName": "nivel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCalentamiento",
+            "columnName": "isCalentamiento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isEstiramiento",
+            "columnName": "isEstiramiento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descanso",
+            "columnName": "descanso",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idRutina"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_rutina_idRutina",
+            "unique": true,
+            "columnNames": [
+              "idRutina"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_rutina_idRutina` ON `${TABLE_NAME}` (`idRutina`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "material",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMaterial` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `isMaterialWeight` INTEGER NOT NULL, `descripcion` TEXT NOT NULL, `rol` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMaterial",
+            "columnName": "idMaterial",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isMaterialWeight",
+            "columnName": "isMaterialWeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idMaterial"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_material_idMaterial",
+            "unique": true,
+            "columnNames": [
+              "idMaterial"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_material_idMaterial` ON `${TABLE_NAME}` (`idMaterial`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ejercicioMaterialCross",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEjercicio` INTEGER NOT NULL, `idMaterial` INTEGER NOT NULL, PRIMARY KEY(`idEjercicio`, `idMaterial`), FOREIGN KEY(`idEjercicio`) REFERENCES `ejercicio`(`idEjercicio`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idMaterial`) REFERENCES `material`(`idMaterial`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idEjercicio",
+            "columnName": "idEjercicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMaterial",
+            "columnName": "idMaterial",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idEjercicio",
+            "idMaterial"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ejercicioMaterialCross_idMaterial",
+            "unique": false,
+            "columnNames": [
+              "idMaterial"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ejercicioMaterialCross_idMaterial` ON `${TABLE_NAME}` (`idMaterial`)"
+          },
+          {
+            "name": "index_ejercicioMaterialCross_idEjercicio",
+            "unique": false,
+            "columnNames": [
+              "idEjercicio"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ejercicioMaterialCross_idEjercicio` ON `${TABLE_NAME}` (`idEjercicio`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ejercicio",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idEjercicio"
+            ],
+            "referencedColumns": [
+              "idEjercicio"
+            ]
+          },
+          {
+            "table": "material",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idMaterial"
+            ],
+            "referencedColumns": [
+              "idMaterial"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "confMaterial",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idConfMaterial` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idMaterial` INTEGER NOT NULL, `idStep` INTEGER NOT NULL, `confValue` REAL NOT NULL, `rol` TEXT NOT NULL, FOREIGN KEY(`idMaterial`) REFERENCES `material`(`idMaterial`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idStep`) REFERENCES `step`(`idStep`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idConfMaterial",
+            "columnName": "idConfMaterial",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMaterial",
+            "columnName": "idMaterial",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idStep",
+            "columnName": "idStep",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confValue",
+            "columnName": "confValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idConfMaterial"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_confMaterial_idConfMaterial",
+            "unique": true,
+            "columnNames": [
+              "idConfMaterial"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_confMaterial_idConfMaterial` ON `${TABLE_NAME}` (`idConfMaterial`)"
+          },
+          {
+            "name": "index_confMaterial_idMaterial",
+            "unique": false,
+            "columnNames": [
+              "idMaterial"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_confMaterial_idMaterial` ON `${TABLE_NAME}` (`idMaterial`)"
+          },
+          {
+            "name": "index_confMaterial_idStep",
+            "unique": false,
+            "columnNames": [
+              "idStep"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_confMaterial_idStep` ON `${TABLE_NAME}` (`idStep`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "material",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idMaterial"
+            ],
+            "referencedColumns": [
+              "idMaterial"
+            ]
+          },
+          {
+            "table": "step",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idStep"
+            ],
+            "referencedColumns": [
+              "idStep"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ea60ae1fe576dcbb14d55abd6095fd9')"
+    ]
+  }
+}

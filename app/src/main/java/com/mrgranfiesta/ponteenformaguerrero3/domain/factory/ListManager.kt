@@ -4,7 +4,7 @@ import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.Musculo
 import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.Nivel
 import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.Rol
 import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.TipoEsfuerzo
-import com.mrgranfiesta.ponteenformaguerrero3.domain.dtobean.faqs.CategoryFaqs
+import com.mrgranfiesta.ponteenformaguerrero3.domain.constans.CategoryFaqs
 import com.mrgranfiesta.ponteenformaguerrero3.domain.dtobean.faqs.Faq
 import com.mrgranfiesta.ponteenformaguerrero3.presentation.navigations.AppScreem
 

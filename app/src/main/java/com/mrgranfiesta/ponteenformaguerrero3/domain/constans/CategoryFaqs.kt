@@ -1,4 +1,4 @@
-package com.mrgranfiesta.ponteenformaguerrero3.domain.dtobean.faqs
+package com.mrgranfiesta.ponteenformaguerrero3.domain.constans
 
 enum class CategoryFaqs(
     val title : String

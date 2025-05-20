@@ -4,6 +4,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.FormatEmail
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.MaxLenght
+import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.MinLenght
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.NotEmpty
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.SecuredCharEmailSQL
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.SecuredCharSQL
@@ -27,6 +28,7 @@ object ValidationAnnotations {
 
             val isFinish = when {
                 validator.ruleValidationMaxLenghtInvalid(field) -> true
+                validator.ruleValidationMinLenghtInvalid(field) -> true
                 validator.ruleValidationNotEmptyInvalid(field) -> true
                 validator.ruleValidationSecuredCharSQLInvalid(field) -> true
                 validator.ruleValidationSecuredCharEmailSQLInvalid(field) -> true
@@ -46,6 +48,7 @@ object ValidationAnnotations {
         private var viewModelScope: CoroutineScope,
         private var bean: Any
     ) {
+        @SuppressWarnings("kotlin:S6619")
         fun ruleValidationMaxLenghtInvalid(
             field: Field
         ) : Boolean {
@@ -63,6 +66,25 @@ object ValidationAnnotations {
             return false
         }
 
+        @SuppressWarnings("kotlin:S6619")
+        fun ruleValidationMinLenghtInvalid(
+            field: Field
+        ) : Boolean {
+            field.getAnnotation(MinLenght::class.java)?.let { annotation ->
+                val value = field[bean] as? String
+                if (value != null && value.length < annotation.min) {
+                    this.makeSnackBar(
+                        msg = SnackbarHostText.snackbarHostErrorMinLength(annotation.fieldName, annotation.min),
+                        snackbarHost = snackbarHost,
+                        viewModelScope = viewModelScope
+                    )
+                    return true
+                }
+            }
+            return false
+        }
+
+        @SuppressWarnings("kotlin:S6619")
         fun ruleValidationNotEmptyInvalid(
             field: Field
         ) : Boolean {
@@ -80,6 +102,7 @@ object ValidationAnnotations {
             return false
         }
 
+        @SuppressWarnings("kotlin:S6619")
         fun ruleValidationSecuredCharSQLInvalid(
             field: Field
         ) : Boolean {
@@ -97,6 +120,7 @@ object ValidationAnnotations {
             return false
         }
 
+        @SuppressWarnings("kotlin:S6619")
         fun ruleValidationSecuredCharEmailSQLInvalid(
             field: Field
         ) : Boolean {
@@ -114,6 +138,7 @@ object ValidationAnnotations {
             return false
         }
 
+        @SuppressWarnings("kotlin:S6619")
         fun ruleValidationFormatEmailInvalid(
             field: Field
         ) : Boolean {

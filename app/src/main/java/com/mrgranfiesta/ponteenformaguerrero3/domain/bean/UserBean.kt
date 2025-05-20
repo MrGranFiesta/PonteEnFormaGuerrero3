@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.FormatEmail
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.MaxLenght
+import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.MinLenght
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.NotEmpty
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.SecuredCharEmailSQL
 import com.mrgranfiesta.ponteenformaguerrero3.domain.annotatios.SecuredCharSQL
@@ -20,6 +21,7 @@ data class UserBean(
     var username : String,
     @NotEmpty("contraseña")
     @MaxLenght(20, "contraseña")
+    @MinLenght(8, "email")
     var password : String,
     @NotEmpty("email")
     @SecuredCharEmailSQL("email")

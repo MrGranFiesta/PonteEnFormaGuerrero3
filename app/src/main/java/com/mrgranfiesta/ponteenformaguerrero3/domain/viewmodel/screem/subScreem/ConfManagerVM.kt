@@ -43,9 +43,7 @@ class ConfManagerVM : ViewModel() {
 
     @Composable
     private fun getImagerSerie(
-        stepList: List<StepEntrenamientoDto>,
-        descanso: Int,
-        cursorStep: Int
+        stepList: List<StepEntrenamientoDto>, descanso: Int, cursorStep: Int
     ) : IManagerSerie {
         return when {
             TipoEsfuerzo.CRONO == stepList[cursorStep].tipo && stepList[cursorStep].isSimetria -> {

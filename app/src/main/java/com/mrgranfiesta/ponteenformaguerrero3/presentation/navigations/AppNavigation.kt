@@ -54,7 +54,6 @@ fun NavigationHost(
                 snackbarHost = snackbarHost,
                 navController = navController
             )
-
         }
 
         composable(

@@ -56,6 +56,9 @@ class SnackbarHostText {
         fun snackbarHostErrorMaxLength(label: String, maxLegth: Int) =
             "Error, campo $label no puede superar $maxLegth carácteres."
 
+        fun snackbarHostErrorMinLength(label: String, maxLegth: Int) =
+            "Error, campo $label debe superar los $maxLegth carácteres."
+
         fun snackbarHostErrorIlegalChar(label: String) =
             "Error, campo $label contiene carácteres no permitidos."
 
